@@ -112,24 +112,20 @@ def split_furigana(text):
 
 
 def print_html(text):
-    for pair in split_furigana(text):
-        if len(pair)==2:
-            kanji,hira = pair
-            print("<ruby><rb>{0}</rb><rt>{1}</rt></ruby>".
-                    format(kanji, hira), end='')
-        else:
-            print(pair[0], end='')
-    print('')
+    print(gen_html(text))
 
 
-def print_plaintext(text):
+def gen_html(text):
+    buf = ""
     for pair in split_furigana(text):
         if len(pair)==2:
-            kanji,hira = pair
-            print("%s(%s)" % (kanja,hira), end='')
+            kanji, hira = pair
+            buf += ("<ruby><rb>{0}</rb><rt>{1}</rt></ruby>".
+                    format(kanji, hira))
         else:
-            print(pair[0], end='')
-    print('')
+            buf += pair[0]
+    buf += "\n"
+    return buf
 
 
 def main():
